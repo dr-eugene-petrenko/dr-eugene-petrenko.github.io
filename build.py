@@ -75,11 +75,32 @@ HEADER_CSS = """
   .shk-title{font-size:15px}
   .shk-hdr .shk-nav a{font-size:14px;padding:7px 11px}
 }
-@media(max-width:520px){.shk-title{display:none}}
+.shk-tgl{display:none;margin-left:auto;font:inherit;font-size:15px;font-weight:500;cursor:pointer;
+  color:#fff;background:linear-gradient(90deg,#c9573f,#1d8a85);border:0;border-radius:10px;padding:9px 14px}
+@media(max-width:767px){
+  .shk-title{display:none}
+  .shk-tgl{display:block}
+  .shk-bar{display:none;background:#fff;border-top:1px solid #eee}
+  .shk-hdr.open .shk-bar{display:block}
+  .shk-nav{flex-direction:column;align-items:stretch;gap:0;padding:4px 12px 10px;overflow:visible;
+    max-height:calc(100vh - 60px);overflow-y:auto}
+  .shk-hdr .shk-nav a{color:#333;font-size:16px;font-weight:400;border-radius:0;padding:12px 8px;
+    border-bottom:1px solid #f1f1f1}
+  .shk-hdr .shk-nav a:hover{background:#fbf3f1}
+  .shk-hdr .shk-nav a[aria-current=page]{background:linear-gradient(90deg,#c9573f,#1d8a85);color:#fff;
+    border-radius:10px;box-shadow:none;border-bottom-color:transparent}
+}
 """
 
-# Centers the current section in the menu when it scrolls sideways (phones).
-HEADER_JS = """\n(()=>{const c=document.querySelector('.shk-nav a[aria-current]');if(c&&c.parentNode.scrollWidth>c.parentNode.clientWidth)c.parentNode.scrollLeft=c.offsetLeft-c.parentNode.clientWidth/2+c.offsetWidth/2})();\n"""
+# Phone menu toggle (closes on outside click / Escape); centers the current item on a sideways-scrolling bar.
+HEADER_JS = """
+(()=>{const h=document.querySelector('.shk-hdr'),t=h.querySelector('.shk-tgl'),n=h.querySelector('.shk-nav');
+const set=o=>{h.classList.toggle('open',o);t.setAttribute('aria-expanded',o);t.textContent=o?'✕ Закрити':'☰ Меню'};
+t.addEventListener('click',e=>{e.stopPropagation();set(!h.classList.contains('open'))});
+document.addEventListener('click',e=>{if(!h.contains(e.target))set(false)});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')set(false)});
+const c=n.querySelector('a[aria-current]');if(c&&n.scrollWidth>n.clientWidth&&getComputedStyle(n).flexDirection==='row')n.scrollLeft=c.offsetLeft-n.clientWidth/2+c.offsetWidth/2})();
+"""
 
 
 def url_path(slug: str) -> str:
@@ -100,7 +121,8 @@ def header(current: str) -> str:
         '<header class="shk-hdr"><div class="shk-in">'
         '<a class="shk-logo" href="/" aria-label="Євген Петренко — акушер-гінеколог, PhD">'
         '<img src="/images/logo.png" alt="Євген Петренко — акушер-гінеколог, PhD"></a>'
-        f'<span class="shk-title">{SITE_TITLE}</span></div>'
+        f'<span class="shk-title">{SITE_TITLE}</span>'
+        '<button class="shk-tgl" type="button" aria-expanded="false" aria-label="Меню">☰ Меню</button></div>'
         f'<div class="shk-bar"><nav class="shk-nav" aria-label="Розділи сайту">{links(PAGES, current)}</nav></div>'
         "</header><script>" + HEADER_JS + "</script>"
     )
