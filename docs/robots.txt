@@ -1,1 +1,3 @@
+User-agent: *
+Allow: /
 Sitemap: https://dr-eugene-petrenko.github.io/sitemap.xml
