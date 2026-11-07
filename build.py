@@ -16,7 +16,7 @@ import urllib.parse
 # Set it (e.g. "www.dr-petrenko.com.ua") only together with the DNS records and
 # the Custom domain in the repo's Settings → Pages: the build then writes docs/CNAME
 # and every canonical/sitemap/preview link uses the domain.
-CUSTOM_DOMAIN = ""
+CUSTOM_DOMAIN = "www.dr-petrenko.com.ua"
 SITE_URL = f"https://{CUSTOM_DOMAIN or 'dr-eugene-petrenko.github.io'}"
 SITE_TITLE = "Все про вагітність і пологи"
 DESCRIPTION = (
