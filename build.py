@@ -12,7 +12,12 @@ import pathlib
 import shutil
 import urllib.parse
 
-SITE_URL = "https://dr-eugene-petrenko.github.io"
+# The site's own domain. Empty = served at dr-eugene-petrenko.github.io.
+# Set it (e.g. "www.dr-petrenko.com.ua") only together with the DNS records and
+# the Custom domain in the repo's Settings → Pages: the build then writes docs/CNAME
+# and every canonical/sitemap/preview link uses the domain.
+CUSTOM_DOMAIN = ""
+SITE_URL = f"https://{CUSTOM_DOMAIN or 'dr-eugene-petrenko.github.io'}"
 SITE_TITLE = "Все про вагітність і пологи"
 DESCRIPTION = (
     "Петренко Євген Вікторович — лікар акушер-гінеколог, доктор філософії (PhD). "
@@ -177,6 +182,8 @@ def main() -> None:
         shutil.rmtree(out)
     shutil.copytree(src / "images", out / "images")
     (out / ".nojekyll").write_text("")
+    if CUSTOM_DOMAIN:
+        (out / "CNAME").write_text(CUSTOM_DOMAIN + "\n")
     for slug, label in PAGES:
         target = out / ("index.html" if slug == "головна" else f"{slug}/index.html")
         target.parent.mkdir(parents=True, exist_ok=True)
