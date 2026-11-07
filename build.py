@@ -150,7 +150,13 @@ def page(slug: str, label: str, src: pathlib.Path) -> str:
 <meta property="og:title" content="{html.escape(title)}">
 <meta property="og:description" content="{html.escape(DESCRIPTION)}">
 <meta property="og:url" content="{canonical}">
-<meta property="og:image" content="{SITE_URL}/images/logo.png">
+<meta property="og:image" content="{SITE_URL}/images/preview.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Євген Петренко, акушер-гінеколог, з новонародженим">
+<meta property="og:locale" content="uk_UA">
+<meta property="og:site_name" content="Євген Петренко — акушер-гінеколог">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400&display=swap" rel="stylesheet">
 <style>{HEADER_CSS}</style>
