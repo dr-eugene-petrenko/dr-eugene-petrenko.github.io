@@ -47,62 +47,39 @@ WIDGET = (
     'data-agent-base="https://agent.shukai.ai" async></script>'
 )
 
-# How many menu items fit in one row on a wide screen; the rest go under «Ще ▾».
-MENU_IN_ROW = 10
 
 HEADER_CSS = """
-.shk-hdr{position:sticky;top:0;z-index:50;background:#fff;border-bottom:1px solid #eee;
-  font-family:Lato,Inter,'Segoe UI',Roboto,Arial,sans-serif;box-sizing:border-box}
+.shk-hdr{position:sticky;top:0;z-index:50;background:#fff;
+  font-family:Lato,Inter,'Segoe UI',Roboto,Arial,sans-serif;box-sizing:border-box;
+  box-shadow:0 2px 10px rgba(0,0,0,.08)}
 .shk-hdr *{box-sizing:border-box}
-.shk-hdr .shk-in details{background:none;border:0;border-radius:0;padding:0;margin:0;box-shadow:none}
-.shk-hdr .shk-in summary{margin:0;background:none;font-family:inherit;font-weight:300;outline-offset:2px}
-.shk-hdr .shk-in summary::before,.shk-hdr .shk-in summary::after{content:none;display:none}
 .shk-in{max-width:1500px;margin:0 auto;display:flex;align-items:center;gap:20px;
-  padding:6px 20px;min-height:60px}
+  padding:6px 20px;min-height:56px}
 .shk-hdr a.shk-logo{display:flex;align-items:center;flex:none;text-decoration:none}
 .shk-logo img{height:44px;width:auto;display:block}
-.shk-title{flex:none;font-size:20px;font-weight:300;color:rgba(0,0,0,.82);white-space:nowrap}
-.shk-nav{display:flex;align-items:center;gap:16px;margin-left:auto}
-.shk-hdr .shk-nav a,.shk-more summary{font-size:15px;font-weight:300;color:rgba(0,0,0,.64);
-  text-decoration:none;padding:6px 0;border-bottom:2px solid transparent;white-space:nowrap;
-  line-height:1.3;cursor:pointer}
-.shk-hdr .shk-nav a:hover,.shk-more summary:hover{color:rgba(0,0,0,.87)}
-.shk-hdr .shk-nav a[aria-current=page],.shk-more.cur summary{color:rgba(0,0,0,.87);font-weight:400;
-  border-bottom-color:#c1563f}
-.shk-more{position:relative}
-.shk-more summary{list-style:none}
-.shk-more summary::-webkit-details-marker{display:none}
-.shk-more>div{position:absolute;right:0;top:calc(100% + 8px);background:#fff;border-radius:10px;
-  box-shadow:0 8px 24px rgba(0,0,0,.14);padding:6px 0;min-width:180px;display:flex;flex-direction:column}
-.shk-hdr .shk-more>div a{padding:9px 18px;border:0}
-.shk-hdr .shk-more>div a[aria-current=page]{color:#c1563f}
-.shk-extra{display:none}
-.shk-menu{display:none;margin-left:auto}
-.shk-menu summary{list-style:none;cursor:pointer;font-size:15px;color:rgba(0,0,0,.75);
-  padding:8px 12px;border:1px solid #ddd;border-radius:10px}
-.shk-menu summary::-webkit-details-marker{display:none}
-@media(max-width:1519px){.shk-title{display:none}}
+.shk-title{flex:none;font-size:18px;font-weight:300;color:rgba(0,0,0,.7);white-space:nowrap}
+.shk-bar{background:linear-gradient(90deg,#c9573f 0%,#b45a6a 45%,#1d8a85 100%)}
+.shk-nav{max-width:1500px;margin:0 auto;display:flex;flex-wrap:nowrap;align-items:center;
+  justify-content:safe center;gap:4px;padding:7px 12px;overflow-x:auto;scrollbar-width:none;
+  -webkit-overflow-scrolling:touch}
+.shk-nav::-webkit-scrollbar{display:none}
+.shk-hdr .shk-nav a{flex:none;font-size:15px;font-weight:500;color:#fff;text-decoration:none;
+  padding:7px 13px;border-radius:999px;white-space:nowrap;line-height:1.2;
+  transition:background .15s,color .15s;border:0}
+.shk-hdr .shk-nav a:hover{background:rgba(255,255,255,.2)}
+.shk-hdr .shk-nav a[aria-current=page]{background:#fff;color:#b04a35;
+  box-shadow:0 1px 4px rgba(0,0,0,.15)}
 @media(max-width:1279px){
-  .shk-in{flex-wrap:wrap;gap:8px;padding:6px 16px}
+  .shk-in{min-height:50px;padding:4px 14px}
   .shk-logo img{height:36px}
-  .shk-menu{display:block}
-  .shk-more{display:none}
-  .shk-extra{display:contents}
-  .shk-nav{display:none;width:100%;flex-direction:column;align-items:stretch;gap:0;margin:0;
-    padding:4px 0 8px}
-  .shk-menu[open]~.shk-nav{display:flex}
-  .shk-hdr .shk-nav a{padding:10px 4px;border-bottom:1px solid #f1f1f1;font-size:16px}
-  .shk-hdr .shk-nav a[aria-current=page]{border-bottom-color:#f1f1f1;color:#c1563f}
+  .shk-title{font-size:15px}
+  .shk-hdr .shk-nav a{font-size:14px;padding:7px 11px}
 }
+@media(max-width:520px){.shk-title{display:none}}
 """
 
-# Closes an open «Ще» list or mobile menu on a click elsewhere or on Escape.
-HEADER_JS = """
-document.addEventListener('click',e=>{document.querySelectorAll('.shk-hdr details[open]')
-  .forEach(d=>{if(!d.contains(e.target))d.removeAttribute('open')})});
-document.addEventListener('keydown',e=>{if(e.key==='Escape')document
-  .querySelectorAll('.shk-hdr details[open]').forEach(d=>d.removeAttribute('open'))});
-"""
+# Centers the current section in the menu when it scrolls sideways (phones).
+HEADER_JS = """\n(()=>{const c=document.querySelector('.shk-nav a[aria-current]');if(c&&c.parentNode.scrollWidth>c.parentNode.clientWidth)c.parentNode.scrollLeft=c.offsetLeft-c.parentNode.clientWidth/2+c.offsetWidth/2})();\n"""
 
 
 def url_path(slug: str) -> str:
@@ -119,20 +96,13 @@ def links(items: list[tuple[str, str]], current: str) -> str:
 
 
 def header(current: str) -> str:
-    row, rest = PAGES[:MENU_IN_ROW], PAGES[MENU_IN_ROW:]
-    more_class = (
-        "shk-more cur" if any(slug == current for slug, _ in rest) else "shk-more"
-    )
     return (
         '<header class="shk-hdr"><div class="shk-in">'
         '<a class="shk-logo" href="/" aria-label="Євген Петренко — акушер-гінеколог, PhD">'
         '<img src="/images/logo.png" alt="Євген Петренко — акушер-гінеколог, PhD"></a>'
-        f'<span class="shk-title">{SITE_TITLE}</span>'
-        '<details class="shk-menu"><summary aria-label="Меню">☰ Меню</summary></details>'
-        f'<nav class="shk-nav" aria-label="Розділи сайту">{links(row, current)}'
-        f'<details class="{more_class}"><summary>Ще ▾</summary><div>{links(rest, current)}</div></details>'
-        f'<span class="shk-extra">{links(rest, current)}</span>'
-        f"</nav></div></header><script>{HEADER_JS}</script>"
+        f'<span class="shk-title">{SITE_TITLE}</span></div>'
+        f'<div class="shk-bar"><nav class="shk-nav" aria-label="Розділи сайту">{links(PAGES, current)}</nav></div>'
+        "</header><script>" + HEADER_JS + "</script>"
     )
 
 
