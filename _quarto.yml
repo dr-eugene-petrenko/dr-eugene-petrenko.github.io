@@ -1,0 +1,55 @@
+project:
+  type: website
+  output-dir: docs
+
+lang: uk
+
+website:
+  title: "Євген Петренко"
+  site-url: "https://dr-eugene-petrenko.github.io"
+  description: "Лікар акушер-гінеколог, доктор філософії. Вагітність і пологи в безпеці і любові."
+  favicon: images/logo.svg
+  navbar:
+    logo: images/logo.svg
+    title: false
+    left:
+      - href: index.qmd
+        text: Про мене
+      - href: experience.qmd
+        text: Досвід
+      - href: teaching.qmd
+        text: Навчання
+      - href: projects.qmd
+        text: Проєкти
+      - href: science.qmd
+        text: Наука
+      - href: contacts.qmd
+        text: Контакти
+    right:
+      - icon: instagram
+        href: https://www.instagram.com/dr.eugene_petrenko
+        aria-label: Instagram
+      - icon: tiktok
+        href: https://www.tiktok.com/@evgenypetrenko41
+        aria-label: TikTok
+      - icon: telegram
+        href: https://t.me/+380667772772
+        aria-label: Telegram
+  page-footer:
+    left: |
+      **Євген Петренко** &nbsp;·&nbsp; доктор філософії, лікар акушер-гінеколог <br>
+      <a href="tel:+380667772772">+380 66 777 27 72</a> &nbsp;·&nbsp;
+      <a href="https://t.me/+380667772772">Telegram</a> &nbsp;·&nbsp;
+      <a href="https://wa.me/380667772772">WhatsApp</a>
+    center: "© 2026 Євген Петренко"
+    right: |
+      Зроблено з ❤️ та [Quarto](https://quarto.org) —<br>
+      *вагітність і пологи в безпеці і любові*
+
+format:
+  html:
+    theme:
+      light: [flatly, styles.scss]
+    css: custom.css
+    toc: false
+    smooth-scroll: true

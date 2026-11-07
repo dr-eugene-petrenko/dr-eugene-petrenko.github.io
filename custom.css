@@ -1,0 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+.quote{font-style:italic;color:#555;border-left:4px solid #7fd0c6;padding-left:1rem;margin-bottom:.3rem}
+.quote-author{color:#888;font-size:.9rem;margin-bottom:1.5rem}
+.card-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:1rem;margin:1.2rem 0}
+.c-card{border-radius:16px;padding:1.1rem 1.2rem;background:#fff;box-shadow:0 3px 14px rgba(95,191,179,.15)}
+.c-card h4{margin-top:0;font-size:1.1rem}
+.doctor{border-top:5px solid #8fd6cd;background:#effaf8}
+.patient{border-top:5px solid #f6b8a6;background:#f4fbfa}
+.badge-doc{background:#7fd0c6;color:#fff;border-radius:6px;padding:.1rem .5rem;font-size:.8rem}
+.badge-pat{background:#f4a08a;color:#fff;border-radius:6px;padding:.1rem .5rem;font-size:.8rem}
+.cta{display:inline-block;margin:.3rem .4rem .3rem 0;padding:.55rem 1.1rem;border-radius:10px;color:#fff!important;text-decoration:none;font-weight:600}
+.cta.tel{background:#3fa79a}.cta.tg{background:#3a9fd0}.cta.wa{background:#3bb873}
+.todo{background:#fff8d6;border:1px dashed #d4b106;border-radius:6px;padding:0 .35rem;color:#7a6400;font-size:.92em}
+.timeline-item{border-left:3px solid #9ed9d1;padding:.2rem 0 .8rem 1rem;margin-left:.3rem}
+.timeline-item .when{color:#3fa79a;font-weight:600}
+
+.navbar{box-shadow:0 2px 12px rgba(95,191,179,.25)}
+.about-link{border-color:#9ed9d1!important;color:#2b6f67!important;border-radius:10px!important}
+.about-link:hover{background:#e9f7f5}
