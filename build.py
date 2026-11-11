@@ -31,6 +31,7 @@ PAGES = [
     ("контакти", "Контакти"),
     ("досвід", "Досвід"),
     ("вагітним", "Вагітним"),
+    ("пологовий-будинок", "Пологовий будинок"),
     ("корисне-жінкам", "Корисне жінкам"),
     ("питання-і-відповіді", "Питання і відповіді"),
     ("навчання", "Навчання"),
@@ -59,7 +60,7 @@ HEADER_CSS = """
 .shk-logo img{height:44px;width:auto;display:block}
 .shk-title{flex:none;font-size:18px;font-weight:300;color:rgba(0,0,0,.7);white-space:nowrap}
 .shk-bar{background:linear-gradient(90deg,#c9573f 0%,#b45a6a 45%,#1d8a85 100%)}
-.shk-nav{max-width:1500px;margin:0 auto;display:flex;flex-wrap:nowrap;align-items:center;
+.shk-nav{max-width:1700px;margin:0 auto;display:flex;flex-wrap:nowrap;align-items:center;
   justify-content:safe center;gap:4px;padding:7px 12px;overflow-x:auto;scrollbar-width:none;
   -webkit-overflow-scrolling:touch}
 .shk-nav::-webkit-scrollbar{display:none}
@@ -69,15 +70,16 @@ HEADER_CSS = """
 .shk-hdr .shk-nav a:hover{background:rgba(255,255,255,.2)}
 .shk-hdr .shk-nav a[aria-current=page]{background:#fff;color:#b04a35;
   box-shadow:0 1px 4px rgba(0,0,0,.15)}
+@media(max-width:1639px){.shk-nav{gap:2px}.shk-hdr .shk-nav a{font-size:14px;padding:7px 9px}}
+@media(max-width:1399px){.shk-nav{gap:0;padding:7px 8px}.shk-hdr .shk-nav a{font-size:13px;padding:7px 7px}}
 @media(max-width:1279px){
   .shk-in{min-height:50px;padding:4px 14px}
   .shk-logo img{height:36px}
   .shk-title{font-size:15px}
-  .shk-hdr .shk-nav a{font-size:14px;padding:7px 11px}
 }
 .shk-tgl{display:none;margin-left:auto;font:inherit;font-size:15px;font-weight:500;cursor:pointer;
   color:#fff;background:linear-gradient(90deg,#c9573f,#1d8a85);border:0;border-radius:10px;padding:9px 14px}
-@media(max-width:767px){
+@media(max-width:1239px){
   .shk-title{display:none}
   .shk-tgl{display:block}
   .shk-bar{display:none;background:#fff;border-top:1px solid #eee}
