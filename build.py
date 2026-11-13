@@ -49,6 +49,24 @@ WIDGET = (
 )
 
 
+# Accessibility widget (WebYes/CookieYes). Opens on the page's own language; bottom-left so it
+# does not cover the Shukai assistant in the bottom-right corner.
+A11Y_ID = "197a883b-998d-435c-80cc-d5660d669666"
+
+
+def a11y(lang: str) -> str:
+    cfg = (
+        '{"iconId":"default","position":{"mobile":"bottom-left","desktop":"bottom-left"},'
+        f'"language":{{"default":"{lang}","selected":["uk","en"]}},'
+        '"modules":{"statement":{"enabled":false,"url":""}}}'
+    )
+    return (
+        "<script>(function(w,d,s,u){w._cyA11yConfig=" + cfg + ";"
+        "var js=d.createElement(s),fjs=d.getElementsByTagName(s)[0];js.src=u;js.async=true;"
+        "fjs.parentNode.insertBefore(js,fjs);})(window,document,\"script\","
+        f"\"https://cdn-cookieyes.com/widgets/accessibility.js?id={A11Y_ID}\");</script>"
+    )
+
 HEADER_CSS = """
 .shk-hdr{position:sticky;top:0;z-index:50;background:#fff;
   font-family:Lato,Inter,'Segoe UI',Roboto,Arial,sans-serif;box-sizing:border-box;
@@ -265,6 +283,7 @@ def page(slug: str, label: str, src: pathlib.Path, lang: str = "uk") -> str:
 {header(slug, lang)}
 {body}
 {WIDGET}
+{a11y(lang)}
 </body>
 </html>
 """
