@@ -1,0 +1,47 @@
+# Після кожної публікації сайту (GitHub Pages) оновлює базу знань асистента Shukai:
+# імпортує sitemap.xml (нові сторінки) і заново перечитує всі сторінки.
+# Ключ керування Shukai зберігається в секреті репозиторію SHUKAI_API_KEY.
+name: Оновити асистента Shukai
+
+on:
+  page_build:
+  workflow_dispatch:
+
+concurrency:
+  group: shukai-refresh
+  cancel-in-progress: true
+
+jobs:
+  refresh:
+    if: github.event_name == 'workflow_dispatch' || github.event.build.status == 'built'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      KEY: ${{ secrets.SHUKAI_API_KEY }}
+      SITE: c1691477-4b56-4d45-b407-0cccbeba2636
+      API: https://app.shukai.ai/api
+    steps:
+      - name: Зачекати, поки нова версія сайту стане доступною
+        run: sleep 90
+      - name: Імпортувати карту сайту
+        run: |
+          curl -fsS -X POST -H "Authorization: Api-Key $KEY" -H 'Content-Type: application/json' \
+            "$API/sites/$SITE/import-sitemap/" -d '{}'
+          sleep 30
+      - name: Перечитати всі сторінки
+        run: |
+          NOW=$(date -u +%Y-%m-%dT%H:%M:%SZ)
+          curl -fsS -X POST -H "Authorization: Api-Key $KEY" -H 'Content-Type: application/json' \
+            "$API/sources/process-stale/?site=$SITE" -d "{\"site\":\"$SITE\",\"before\":\"$NOW\"}"
+      - name: Дочекатися обробки
+        run: |
+          for i in $(seq 1 40); do
+            sleep 15
+            S=$(curl -fsS -H "Authorization: Api-Key $KEY" "$API/sources/stats/?site=$SITE")
+            echo "$S"
+            if echo "$S" | grep -q '"pending":0,"processing":0'; then
+              echo "$S" | grep -q '"failed":0' || { echo "Є сторінки з помилкою"; exit 1; }
+              exit 0
+            fi
+          done
+          echo "Не дочекались завершення обробки"; exit 1

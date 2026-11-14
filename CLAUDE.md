@@ -157,3 +157,12 @@ docs/                            ГОТОВИЙ сайт: генерується
 - «Питання і відповіді» англійською: у Google Форму надсилаються українські значення теми,
   ролі й згоди (так форма їх приймає); відповіді з таблиці показуються мовою, якою їх написав лікар.
 - Схема території: `images/campus-map.jpg` (укр. підписи) і `images/campus-map-en.jpg` (англ.).
+
+## Асистент Shukai оновлюється сам
+
+- `.github/workflows/shukai.yml`: після кожної успішної публікації сайту (подія `page_build`)
+  GitHub Actions імпортує `sitemap.xml` у Shukai і заново перечитує всі сторінки. Руками нічого
+  робити не треба. Запустити вручну: `gh workflow run shukai.yml`; перевірити:
+  `gh run list --workflow shukai.yml --limit 3`.
+- Ключ керування Shukai — у секреті репозиторію `SHUKAI_API_KEY`. Якщо лікар замінить ключ у панелі
+  Shukai, онови секрет: `gh secret set SHUKAI_API_KEY -R dr-eugene-petrenko/dr-eugene-petrenko.github.io`.
