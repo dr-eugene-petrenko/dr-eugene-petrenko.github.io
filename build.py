@@ -267,7 +267,7 @@ def schema(slug: str, lang: str, canonical: str, title: str, desc: str) -> str:
             "url": "https://rmcrz.com/", "telephone": "+380563788000", "address": addr}
     doc = {"@type": ["Physician", "Person"], "@id": SITE_URL + "/#doctor",
            "name": "Yevhen Petrenko" if en else "Петренко Євген Вікторович",
-           "alternateName": ["Євген Петренко", "Yevhen Petrenko", "Eugene Petrenko"],
+           "alternateName": ["Євген Петренко", "Петренко Євген", "Yevhen Petrenko", "Eugene Petrenko", "Петренко Евгений Викторович", "Евгений Петренко"],
            "jobTitle": "Obstetrician-gynecologist, PhD" if en else "Лікар акушер-гінеколог, доктор філософії (PhD)",
            "medicalSpecialty": ["Obstetric", "Gynecologic"], "url": SITE_URL + url_path("головна", lang),
            "image": SITE_URL + "/images/preview.jpg", "telephone": "+380667772772",
