@@ -68,6 +68,7 @@ def a11y(lang: str) -> str:
     )
 
 HEADER_CSS = """
+[id]{scroll-margin-top:120px}
 .shk-hdr{position:sticky;top:0;z-index:50;background:#fff;
   font-family:Lato,Inter,'Segoe UI',Roboto,Arial,sans-serif;box-sizing:border-box;
   box-shadow:0 2px 10px rgba(0,0,0,.08)}

@@ -33,7 +33,20 @@ def fix_links(h: str) -> str:
             return m.group(0)
         return f"href={q}{new}{sep}{frag}{q}"
 
-    return re.sub(r"""href=(["'])(/[^"'#]*(?:#[^"']*)?)\1""", rep, h)
+    h = re.sub(r"""href=(["'])(/[^"'#]*(?:#[^"']*)?)\1""", rep, h)
+    return re.sub(r"href=&quot;(/[^&#]*(?:#[^&]*)?)&quot;", _rep_q, h)
+
+
+def _rep_q(m):
+    path, sep, frag = m.group(1).partition("#")
+    dec = urllib.parse.unquote(path).strip("/")
+    if path == "/":
+        new = "/en/"
+    elif dec in EN_URL:
+        new = EN_URL[dec]
+    else:
+        return m.group(0)
+    return f"href=&quot;{new}{sep}{frag}&quot;"
 
 
 def translate(slug: str) -> str:
@@ -63,6 +76,9 @@ def translate(slug: str) -> str:
     h = h.replace('toLocaleDateString("uk-UA"', 'toLocaleDateString("en-GB"')
     h = h.replace("'uk-UA'", "'en-GB'").replace('"uk-UA"', '"en-GB"')
     h = h.replace("/images/campus-map.jpg", "/images/campus-map-en.jpg")
+    h = h.replace("/images/rechi-v-polohovyi.jpg", "/images/rechi-v-polohovyi-en.jpg")
+    h = h.replace('download="rechi-v-polohovyi.jpg"', 'download="what-to-pack-for-the-hospital.jpg"')
+    h = h.replace("bag-checklist-v2", "bag-checklist-en-v2")
     return h
 
 
