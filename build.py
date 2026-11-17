@@ -67,7 +67,7 @@ def a11y(lang: str) -> str:
         f"\"https://cdn-cookieyes.com/widgets/accessibility.js?id={A11Y_ID}\");</script>"
     )
 
-HEADER_CSS = """
+HEADER_CSS = """.pg-h1{color:#2b6f67;font-size:30px;line-height:1.25;margin:8px 0 4px;font-family:Inter,'Segoe UI',Roboto,Arial,sans-serif}
 [id]{scroll-margin-top:120px}
 .shk-hdr{position:sticky;top:0;z-index:50;background:#fff;
   font-family:Lato,Inter,'Segoe UI',Roboto,Arial,sans-serif;box-sizing:border-box;
@@ -184,6 +184,106 @@ TEXT = {
 }
 
 
+# Per-page search titles and descriptions: what Google shows in results.
+SEO = {
+    "uk": {
+        "головна": ("Євген Петренко — акушер-гінеколог, PhD, Дніпро",
+            "Лікар акушер-гінеколог Євген Петренко, доктор філософії (PhD), 25 років в акушерстві. Ведення вагітності та пологи в Дніпрі, вул. Космічна, 13. Запис: +380 66 777 27 72."),
+        "вагітним": ("Вагітним: підготовка, ведення вагітності і пологи — лікар Петренко",
+            "Як підготуватися до вагітності, що важливо під час неї і як проходять пологи. Як рахувати рухи плоду, вагітність групи ризику — пояснює акушер-гінеколог, PhD."),
+        "пологовий-будинок": ("Пологовий будинок на Космічній, Дніпро — відділення, екскурсії",
+            "Пологовий будинок Регіонального медичного центру родинного здоров'я, Дніпро, вул. Космічна, 13: 12 пологових залів, неонатальна реанімація, екскурсії щовівторка та щочетверга."),
+        "корисне-жінкам": ("Корисне жінкам: термін вагітності, речі в пологовий, перші ознаки",
+            "Калькулятор терміну вагітності, чек-лист «Речі в пологовий» з картинкою для телефону, перші ознаки вагітності, жіноче здоров'я — коротко і на основі доказів."),
+        "питання-і-відповіді": ("Питання і відповіді про вагітність і пологи — лікар Петренко",
+            "Відповіді акушера-гінеколога на часті запитання про вагітність, пологи і післяпологовий період. Поставте своє запитання лікарю."),
+        "контакти": ("Запис до акушера-гінеколога Євгена Петренка, Дніпро — контакти",
+            "Запис на консультацію до акушера-гінеколога Євгена Петренка: телефон +380 66 777 27 72, Telegram, WhatsApp. Дніпро, вул. Космічна, 13."),
+        "досвід": ("Досвід акушера-гінеколога Євгена Петренка, PhD",
+            "25 років в акушерстві: клінічна робота в пологовому відділенні, професійний шлях, викладання на кафедрі акушерства ФПО ДДМУ."),
+        "фотогалерея": ("Фотогалерея — акушер-гінеколог Євген Петренко",
+            "Фото з роботи акушера-гінеколога Євгена Петренка: пологи, пологові зали і палати, операційна, щасливі родини, навчання лікарів."),
+        "навчання": ("Навчання лікарів: тренінг «Кесарів розтин» — Євген Петренко",
+            "Післядипломна освіта для акушерів-гінекологів: тренінги з кесаревого розтину (базовий і поглиблений курс), практичні навички на кафедрі ФПО ДДМУ."),
+        "лікарям": ("Лікарям: що змінилося в акушерській практиці",
+            "Короткі огляди змін у практиці акушера-гінеколога з посиланнями на актуальні настанови та дослідження."),
+        "алгоритми": ("Алгоритми невідкладних станів в акушерстві",
+            "Покрокові алгоритми дій при невідкладних станах в акушерстві для лікарів і акушерок."),
+        "проєкти": ("Проєкти: тренінги ДДМУ і методичні рекомендації «Кесарів розтин»",
+            "Тренінги з оволодіння практичними навичками ДДМУ, тренінг з кесаревого розтину, методичні рекомендації — проєкти лікаря Євгена Петренка."),
+        "настанови": ("Клінічні настанови з акушерства і гінекології 2025–2026",
+            "Добірка актуальних клінічних настанов з акушерства і гінекології з пошуком: вагітність, пологи, кесарів розтин, супутні стани."),
+        "наука": ("Наука: дисертація PhD і наукові інтереси — Євген Петренко",
+            "Дисертація на здобуття ступеня доктора філософії, науковий керівник, наукові інтереси та публікації акушера-гінеколога Євгена Петренка."),
+    },
+    "en": {
+        "головна": ("Yevhen Petrenko, MD, PhD — obstetrician-gynecologist, Dnipro",
+            "Obstetrician-gynecologist Yevhen Petrenko, PhD, 25 years in obstetrics. Antenatal care and childbirth in Dnipro, Ukraine (13 Kosmichna St). Call +380 66 777 27 72."),
+        "вагітним": ("Pregnancy: preparation, antenatal care and birth — Dr Petrenko",
+            "Preparing for pregnancy, what matters while pregnant and how birth goes. Counting baby's movements and high-risk pregnancy explained by an obstetrician, PhD."),
+        "пологовий-будинок": ("Maternity hospital on Kosmichna St, Dnipro — units and tours",
+            "Maternity hospital of the Regional Medical Center of Family Health, 13 Kosmichna St, Dnipro: 12 birth rooms, neonatal intensive care, tours every Tuesday and Thursday."),
+        "корисне-жінкам": ("Women's health: due date, hospital bag, early pregnancy signs",
+            "Due date calculator, a hospital bag checklist with a phone picture, early signs of pregnancy and women's health — short and evidence-based."),
+        "питання-і-відповіді": ("Pregnancy and birth questions answered — Dr Petrenko",
+            "An obstetrician answers common questions about pregnancy, childbirth and the postpartum period. Ask your own question."),
+        "контакти": ("Book Dr Yevhen Petrenko, obstetrician-gynecologist, Dnipro",
+            "Book a consultation with obstetrician-gynecologist Yevhen Petrenko: +380 66 777 27 72, Telegram, WhatsApp. 13 Kosmichna St, Dnipro."),
+        "досвід": ("Experience — obstetrician-gynecologist Yevhen Petrenko, PhD",
+            "25 years in obstetrics: clinical work on the labour ward, career path and teaching at the Dnipro State Medical University."),
+        "фотогалерея": ("Photo gallery — obstetrician-gynecologist Yevhen Petrenko",
+            "Photos from the work of obstetrician-gynecologist Yevhen Petrenko: births, birth rooms and wards, the operating room, happy families, training doctors."),
+        "навчання": ("Training for doctors: caesarean section course — Yevhen Petrenko",
+            "Postgraduate training for obstetricians: caesarean section courses (basic and advanced) and practical skills at Dnipro State Medical University."),
+        "лікарям": ("For doctors: what has changed in obstetric practice",
+            "Short reviews of changes in obstetric and gynecological practice with links to current guidelines and research."),
+        "алгоритми": ("Obstetric emergency algorithms",
+            "Step-by-step algorithms for obstetric emergencies for doctors and midwives."),
+        "проєкти": ("Projects: DSMU skills trainings and caesarean section guidance",
+            "Practical skills trainings at Dnipro State Medical University, a caesarean section course and methodological guidance — projects of Dr Yevhen Petrenko."),
+        "настанови": ("Obstetrics and gynecology guidelines 2025–2026",
+            "A searchable collection of current clinical guidelines in obstetrics and gynecology: pregnancy, birth, caesarean section, coexisting conditions."),
+        "наука": ("Research: PhD thesis and interests — Yevhen Petrenko",
+            "PhD thesis, scientific supervisor, research interests and publications of obstetrician-gynecologist Yevhen Petrenko."),
+    },
+}
+
+SAME_AS = [
+    "https://www.instagram.com/dr.eugene_petrenko",
+    "https://www.tiktok.com/@evgenypetrenko41",
+    "https://scholar.google.com.ua/citations?user=79gkOWsAAAAJ",
+    "https://605.dmu.edu.ua/kolektiv",
+]
+
+
+def schema(slug: str, lang: str, canonical: str, title: str, desc: str) -> str:
+    """JSON-LD for search engines: the doctor on every page, the hospital on its page."""
+    import json
+    en = lang == "en"
+    addr = {"@type": "PostalAddress", "streetAddress": "13 Kosmichna St" if en else "вул. Космічна, 13",
+            "addressLocality": "Dnipro" if en else "Дніпро", "addressCountry": "UA"}
+    hosp = {"@type": "Hospital", "@id": SITE_URL + "/#hospital",
+            "name": "Regional Medical Center of Family Health" if en else "Регіональний медичний центр родинного здоров'я",
+            "url": "https://rmcrz.com/", "telephone": "+380563788000", "address": addr}
+    doc = {"@type": ["Physician", "Person"], "@id": SITE_URL + "/#doctor",
+           "name": "Yevhen Petrenko" if en else "Петренко Євген Вікторович",
+           "alternateName": ["Євген Петренко", "Yevhen Petrenko", "Eugene Petrenko"],
+           "jobTitle": "Obstetrician-gynecologist, PhD" if en else "Лікар акушер-гінеколог, доктор філософії (PhD)",
+           "medicalSpecialty": ["Obstetric", "Gynecologic"], "url": SITE_URL + url_path("головна", lang),
+           "image": SITE_URL + "/images/preview.jpg", "telephone": "+380667772772",
+           "email": "yevhen.petrenko@dmu.edu.ua", "address": addr, "worksFor": {"@id": hosp["@id"]},
+           "hospitalAffiliation": {"@id": hosp["@id"]},
+           "affiliation": {"@type": "CollegeOrUniversity", "name": "Dnipro State Medical University" if en else "Дніпровський державний медичний університет", "url": "https://dmu.edu.ua/"},
+           "areaServed": "Dnipro" if en else "Дніпро", "sameAs": SAME_AS}
+    page_ld = {"@type": "WebPage", "@id": canonical, "url": canonical, "name": title, "description": desc,
+               "inLanguage": lang, "isPartOf": {"@id": SITE_URL + "/#site"}, "about": {"@id": doc["@id"]}}
+    site = {"@type": "WebSite", "@id": SITE_URL + "/#site", "url": SITE_URL + "/",
+            "name": TEXT[lang]["site_name"], "inLanguage": ["uk", "en"], "publisher": {"@id": doc["@id"]}}
+    graph = [site, doc, hosp, page_ld]
+    data = {"@context": "https://schema.org", "@graph": graph}
+    return '<script type="application/ld+json">' + json.dumps(data, ensure_ascii=False).replace("</", "<\\/") + "</script>"
+
+
 def url_path(slug: str, lang: str = "uk") -> str:
     if lang == "en":
         en_slug = EN[slug][0]
@@ -246,9 +346,10 @@ def page(slug: str, label: str, src: pathlib.Path, lang: str = "uk") -> str:
         head_file = src / "pages" / f"{slug}.head.html"
     head = head_file.read_text("utf-8") if head_file.exists() else ""
     shown = label_of(slug, label, lang)
-    title = t["title"] if slug == "головна" else f"{shown} — {t['title']}"
-    if lang == "en" and slug == "головна":
-        title = "Yevhen Petrenko, MD, PhD — obstetrician-gynecologist, Dnipro"
+    title, desc = SEO[lang][slug]
+    if "<h1" not in body:  # every page gets one visible main heading
+        body = body.replace('<div class="w">', f'<div class="w"><h1 class="pg-h1">{html.escape(shown)}</h1>', 1).replace(
+            "<div class='w'>", f"<div class='w'><h1 class=\"pg-h1\">{html.escape(shown)}</h1>", 1)
     canonical = SITE_URL + url_path(slug, lang)
     alternates = "".join(
         f'<link rel="alternate" hreflang="{code}" href="{SITE_URL}{url_path(slug, code)}">\n'
@@ -261,12 +362,12 @@ def page(slug: str, label: str, src: pathlib.Path, lang: str = "uk") -> str:
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{html.escape(title)}</title>
-<meta name="description" content="{html.escape(t["description"])}">
+<meta name="description" content="{html.escape(desc)}">
 <link rel="canonical" href="{canonical}">
 {alternates}<link rel="icon" href="/images/logo.png">
 <meta property="og:type" content="website">
 <meta property="og:title" content="{html.escape(title)}">
-<meta property="og:description" content="{html.escape(t["description"])}">
+<meta property="og:description" content="{html.escape(desc)}">
 <meta property="og:url" content="{canonical}">
 <meta property="og:image" content="{SITE_URL}/images/preview.jpg">
 <meta property="og:image:width" content="1200">
@@ -276,6 +377,7 @@ def page(slug: str, label: str, src: pathlib.Path, lang: str = "uk") -> str:
 <meta property="og:locale:alternate" content="{other[0]}">
 <meta property="og:site_name" content="{html.escape(t["site_name"])}">
 <meta name="twitter:card" content="summary_large_image">
+{schema(slug, lang, canonical, title, desc)}
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400&display=swap" rel="stylesheet">
 <style>{HEADER_CSS}</style>
