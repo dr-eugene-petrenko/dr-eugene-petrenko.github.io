@@ -284,6 +284,79 @@ def schema(slug: str, lang: str, canonical: str, title: str, desc: str) -> str:
     return '<script type="application/ld+json">' + json.dumps(data, ensure_ascii=False).replace("</", "<\\/") + "</script>"
 
 
+# Floating "tip for pregnant women" banner on patient-facing pages: one card at the bottom that
+# rotates short tips, each linking to the section of the site that explains it. Closable per visit.
+TIP_PAGES = {"головна", "вагітним", "корисне-жінкам", "пологовий-будинок", "питання-і-відповіді", "фотогалерея"}
+TIPS = {
+    "uk": [
+        ("🧳", "Зберіть сумку в пологовий до 36 тижнів", "Чек-лист і картинка для телефону", "корисне-жінкам", "#bag"),
+        ("👶", "Рухів малюка стало менше? Не чекайте до ранку", "Як рахувати рухи і коли звертатися", "вагітним", "#rukhy"),
+        ("⏰", "Перейми кожні 5 хвилин або відійшли води?", "Коли їхати в пологовий", "корисне-жінкам", "#birth"),
+        ("🗓", "Який у вас тиждень і коли пологи?", "Калькулятор терміну вагітності", "корисне-жінкам", "#calc"),
+        ("🏥", "Екскурсії пологовим: вт і чт, 13:00–14:00", "Подивіться зали заздалегідь", "пологовий-будинок", "#ekskursii"),
+        ("🩺", "Вагітність групи ризику", "Як спостерігають за малюком", "вагітним", "#hrupa-ryzyku"),
+    ],
+    "en": [
+        ("🧳", "Pack your hospital bag by 36 weeks", "Checklist and a picture for your phone", "корисне-жінкам", "#bag"),
+        ("👶", "Baby moving less? Don't wait until morning", "How to count movements and when to call", "вагітним", "#rukhy"),
+        ("⏰", "Contractions every 5 minutes or waters broken?", "When to go to the hospital", "корисне-жінкам", "#birth"),
+        ("🗓", "What week are you and when is your due date?", "Due date calculator", "корисне-жінкам", "#calc"),
+        ("🏥", "Maternity tours: Tue and Thu, 1–2 pm", "See the birth rooms in advance", "пологовий-будинок", "#ekskursii"),
+        ("🩺", "High-risk pregnancy", "How your baby is monitored", "вагітним", "#hrupa-ryzyku"),
+    ],
+}
+TIP_CSS = (
+    ".tipf{position:fixed;left:50%;bottom:24px;transform:translate(-50%,140%);z-index:9990;width:min(520px,calc(100% - 200px));"
+    "background:linear-gradient(135deg,#fff3ef,#ffe4dc);border:1px solid #f6b8a6;border-left:6px solid #e8806a;border-radius:16px;"
+    "box-shadow:0 10px 30px rgba(193,86,63,.22);font-family:Inter,'Segoe UI',Roboto,Arial,sans-serif;transition:transform .5s ease,opacity .5s;opacity:0}"
+    ".tipf.on{transform:translate(-50%,0);opacity:1}"
+    ".tipf a.tl{display:flex;gap:12px;align-items:center;padding:12px 40px 12px 14px;text-decoration:none;color:#4a3b37}"
+    ".tipf .ti{font-size:28px;line-height:1}.tipf b{display:block;color:#c1563f;font-size:15px;line-height:1.3}"
+    ".tipf small{display:block;font-size:13px;color:#7a5a52;margin-top:2px}.tipf small:after{content:' →';color:#e8806a;font-weight:700}"
+    ".tipf .tt{transition:opacity .35s}.tipf .tt.f{opacity:0}"
+    ".tipf .tk{position:absolute;top:-9px;left:14px;background:#e8806a;color:#fff;font-size:11px;font-weight:700;padding:2px 8px;border-radius:9px;letter-spacing:.2px}"
+    ".tipf .tx{position:absolute;top:6px;right:6px;border:0;background:none;font-size:18px;color:#a0766c;cursor:pointer;padding:6px;line-height:1}"
+    ".tipf .td{position:absolute;bottom:5px;right:12px;display:flex;gap:4px}.tipf .td i{width:6px;height:6px;border-radius:50%;background:#f6b8a6}.tipf .td i.a{background:#e8806a}"
+    "@media(max-width:760px){.tipf{width:calc(100% - 24px);bottom:92px}}"
+    "@media print{.tipf{display:none}}"
+)
+
+
+def tip_banner(slug: str, lang: str) -> str:
+    if slug not in TIP_PAGES:
+        return ""
+    import json
+    tips = [
+        {"i": i, "t": t, "s": sub, "h": url_path(page, lang) + anchor}
+        for i, t, sub, page, anchor in TIPS[lang]
+    ]
+    label = "Порада для вагітних" if lang == "uk" else "Tip for pregnant women"
+    close = "Закрити поради" if lang == "uk" else "Close tips"
+    data = json.dumps(tips, ensure_ascii=False).replace("</", "<\\/")
+    return (
+        f'<style>{TIP_CSS}</style>'
+        f'<aside class="tipf" id="tipf" aria-label="{label}" hidden><span class="tk">💡 {label}</span>'
+        f'<a class="tl" href="#"><span class="ti tt"></span><span class="tt"><b></b><small></small></span></a>'
+        f'<button class="tx" type="button" aria-label="{close}">✕</button><span class="td"></span></aside>'
+        "<script>(function(){var T=" + data + ",K='tipf-off',b=document.getElementById('tipf');"
+        "try{if(sessionStorage.getItem(K))return}catch(e){}"
+        "var a=b.querySelector('.tl'),ic=b.querySelector('.ti'),bt=b.querySelector('b'),sm=b.querySelector('small'),"
+        "fx=b.querySelectorAll('.tt'),dd=b.querySelector('.td'),n=Math.floor(Math.random()*T.length),tm,shown=0;"
+        "T.forEach(function(){dd.appendChild(document.createElement('i'))});"
+        "function put(k){var t=T[k];ic.textContent=t.i;bt.textContent=t.t;sm.textContent=t.s;a.href=t.h;"
+        "[].forEach.call(dd.children,function(d,j){d.className=j===k?'a':''})}"
+        "function next(){fx.forEach(function(e){e.classList.add('f')});"
+        "setTimeout(function(){n=(n+1)%T.length;put(n);fx.forEach(function(e){e.classList.remove('f')})},350)}"
+        "function show(){if(shown)return;shown=1;put(n);b.hidden=false;"
+        "requestAnimationFrame(function(){requestAnimationFrame(function(){b.classList.add('on')})});tm=setInterval(next,7000)}"
+        "b.addEventListener('mouseenter',function(){clearInterval(tm)});"
+        "b.addEventListener('mouseleave',function(){clearInterval(tm);tm=setInterval(next,7000)});"
+        "b.querySelector('.tx').onclick=function(){clearInterval(tm);b.classList.remove('on');"
+        "try{sessionStorage.setItem(K,1)}catch(e){}setTimeout(function(){b.hidden=true},500)};"
+        "setTimeout(show,6000);addEventListener('scroll',function(){if(scrollY>500)show()},{passive:true})})();</script>"
+    )
+
+
 def url_path(slug: str, lang: str = "uk") -> str:
     if lang == "en":
         en_slug = EN[slug][0]
@@ -385,6 +458,7 @@ def page(slug: str, label: str, src: pathlib.Path, lang: str = "uk") -> str:
 <body>
 {header(slug, lang)}
 {body}
+{tip_banner(slug, lang)}
 {WIDGET}
 {a11y(lang)}
 </body>
