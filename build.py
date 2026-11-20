@@ -253,6 +253,8 @@ SAME_AS = [
     "https://www.tiktok.com/@evgenypetrenko41",
     "https://scholar.google.com.ua/citations?user=79gkOWsAAAAJ",
     "https://605.dmu.edu.ua/kolektiv",
+    "https://orcid.org/0000-0002-4679-3347",
+    "https://www.wikidata.org/wiki/Q142229889",
 ]
 
 
