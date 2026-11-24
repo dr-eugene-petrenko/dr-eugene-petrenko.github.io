@@ -83,10 +83,12 @@ details{border-bottom:1px dashed #f6d2c7;padding:8px 0}summary{font-weight:700;c
 var tg=window.Telegram&&Telegram.WebApp;if(tg){try{tg.ready();tg.expand()}catch(e){}}
 document.querySelectorAll('.it').forEach(function(b){b.onclick=function(){var s=document.getElementById(b.dataset.s),on=s.classList.contains('on');
 document.querySelectorAll('.sec').forEach(function(x){x.classList.remove('on')});if(!on){s.classList.add('on');s.scrollIntoView({behavior:'smooth',block:'start'})}}});
-document.getElementById('book').onclick=function(){try{if(window.Shukai&&Shukai.openForm){Shukai.openForm('zapys-na-konsultatsiiu');return}}catch(e){}location.href='tel:+380667772772'};
+document.getElementById('book').onclick=function(){try{if(window.Shukai&&Shukai.openForm){Shukai.openForm('zapys-na-konsultatsiiu');return}}catch(e){}drCall('+380667772772')};
+// Telegram blocks tel: inside mini apps: open a call page in the phone's browser
+function drCall(n){if(tg&&tg.openLink){tg.openLink(location.origin+'/bot/call.html?n='+encodeURIComponent(n))}else{location.href='tel:'+n}}
 // external links and tel/mailto open outside Telegram's webview
 document.addEventListener('click',function(e){var a=e.target.closest('a');if(!a||!tg)return;var h=a.getAttribute('href')||'';
-if(/^https:\/\/t\.me\//.test(h)){e.preventDefault();tg.openTelegramLink(h)}else if(/^https?:/.test(h)&&a.host!==location.host){e.preventDefault();tg.openLink(h)}});
+if(/^tel:/.test(h)){e.preventDefault();drCall(h.slice(4))}else if(/^https:\/\/t\.me\//.test(h)){e.preventDefault();tg.openTelegramLink(h)}else if(/^https?:/.test(h)&&a.host!==location.host){e.preventDefault();tg.openLink(h)}});
 })();
 </script>
 </body>
