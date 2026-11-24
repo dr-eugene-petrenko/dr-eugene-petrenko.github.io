@@ -474,6 +474,7 @@ def main() -> None:
     if out.exists():
         shutil.rmtree(out)
     shutil.copytree(src / "images", out / "images")
+    shutil.copytree(src / "bot", out / "bot")  # Telegram Mini App for @drpetrenko_bot
     (out / ".nojekyll").write_text("")
     if CUSTOM_DOMAIN:
         (out / "CNAME").write_text(CUSTOM_DOMAIN + "\n")
