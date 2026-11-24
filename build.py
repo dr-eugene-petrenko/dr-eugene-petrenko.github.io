@@ -121,7 +121,7 @@ HEADER_CSS = """.pg-h1{color:#2b6f67;font-size:30px;line-height:1.25;margin:8px 
 """
 
 # Phone menu toggle (closes on outside click / Escape); centers the current item on a sideways-scrolling bar.
-HEADER_JS = """
+HEADER_JS = """window.drBook=function(){try{if(window.Shukai&&Shukai.openForm){Shukai.openForm("zapys-na-konsultatsiiu");return true}}catch(e){}return false};
 (()=>{const h=document.querySelector('.shk-hdr'),t=h.querySelector('.shk-tgl'),n=h.querySelector('.shk-nav');
 const set=o=>{h.classList.toggle('open',o);t.setAttribute('aria-expanded',o);t.textContent=o?h.dataset.close:h.dataset.menu};
 t.addEventListener('click',e=>{e.stopPropagation();set(!h.classList.contains('open'))});
