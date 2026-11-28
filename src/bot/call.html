@@ -1,6 +1,6 @@
 <!DOCTYPE html><html lang="uk"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><title>Дзвінок — Dr. Petrenko</title>
 <style>body{margin:0;font-family:Inter,'Segoe UI',Roboto,Arial,sans-serif;background:#fff6f3;color:#4a2f2a;display:flex;min-height:100vh;align-items:center;justify-content:center;text-align:center}
 .c{padding:24px}a{display:inline-block;margin-top:16px;background:#e8806a;color:#fff;text-decoration:none;font-size:22px;font-weight:700;padding:16px 28px;border-radius:14px}p{font-size:16px;color:#7a5a52}</style></head>
-<body><div class="c"><p>Відкриваємо набір номера…</p><a id="c" href="tel:+380667772772">📞 +380 66 777 27 72</a><p>Якщо дзвінок не почався — натисніть кнопку.</p></div>
+<body><div class="c"><p>Натисніть, щоб подзвонити:</p><a id="c" href="tel:+380667772772">📞 +380 66 777 27 72</a><p>Телефон запитає підтвердження — оберіть «Подзвонити».</p></div>
 <script>(function(){var n=(new URLSearchParams(location.search).get('n')||'').replace(/[^0-9+]/g,'');if(!/^\+?[0-9]{3,15}$/.test(n))n='+380667772772';
-var a=document.getElementById('c');a.href='tel:'+n;if(n!=='+380667772772')a.textContent='📞 '+n;setTimeout(function(){location.href='tel:'+n},300)})();</script></body></html>
+var a=document.getElementById('c');a.href='tel:'+n;if(n!=='+380667772772')a.textContent='📞 '+n;try{location.href='tel:'+n}catch(e){}})();</script></body></html>

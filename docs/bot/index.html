@@ -85,7 +85,16 @@ document.querySelectorAll('.it').forEach(function(b){b.onclick=function(){var s=
 document.querySelectorAll('.sec').forEach(function(x){x.classList.remove('on')});if(!on){s.classList.add('on');s.scrollIntoView({behavior:'smooth',block:'start'})}}});
 document.getElementById('book').onclick=function(){try{if(window.Shukai&&Shukai.openForm){Shukai.openForm('zapys-na-konsultatsiiu');return}}catch(e){}drCall('+380667772772')};
 // Telegram blocks tel: inside mini apps: open a call page in the phone's browser
-function drCall(n){if(tg&&tg.openLink){tg.openLink(location.origin+'/bot/call.html?n='+encodeURIComponent(n))}else{location.href='tel:'+n}}
+function drCall(n){var url=location.origin+'/bot/call.html?n='+encodeURIComponent(n);
+if(!tg||!tg.showPopup){location.href='tel:'+n;return}
+var pretty=n==='+380667772772'?'+380 66 777 27 72':n,btns=[{id:'call',type:'default',text:'📞 Подзвонити'}];
+if(n.length>5)btns.push({id:'tg',type:'default',text:'💬 Написати в Telegram'});btns.push({id:'copy',type:'default',text:'📋 Скопіювати номер'});
+try{tg.showPopup({title:pretty,message:n.length>5?'Як вам зручніше звʼязатися?':'Виклик екстреної допомоги',buttons:btns},function(id){
+if(id==='call'){try{tg.openLink(url,{try_browser:'chrome',try_instant_view:false})}catch(e){tg.openLink(url)}}
+else if(id==='tg'){tg.openTelegramLink('https://t.me/'+n)}
+else if(id==='copy'){var done=function(){tg.showAlert('Номер '+pretty+' скопійовано. Вставте його в «Телефон».')};
+if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(n).then(done,function(){tg.showAlert(pretty)})}else{tg.showAlert(pretty)}}})}
+catch(e){location.href='tel:'+n}}
 // external links and tel/mailto open outside Telegram's webview
 document.addEventListener('click',function(e){var a=e.target.closest('a');if(!a||!tg)return;var h=a.getAttribute('href')||'';
 if(/^tel:/.test(h)){e.preventDefault();drCall(h.slice(4))}else if(/^https:\/\/t\.me\//.test(h)){e.preventDefault();tg.openTelegramLink(h)}else if(/^https?:/.test(h)&&a.host!==location.host){e.preventDefault();tg.openLink(h)}});
