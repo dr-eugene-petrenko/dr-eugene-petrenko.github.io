@@ -95,7 +95,7 @@ try{tg.showPopup({title:a,message:'Як вам зручніше?',buttons:[{id:'
 if(id==='mail'){drOut(location.origin+'/bot/go.html?to=mail&e='+encodeURIComponent(a))}else if(id==='copy'){drCopy(a,'Адресу '+a+' скопійовано. Вставте її в поштовий додаток.')}})}catch(e){location.href='mailto:'+a}}
 function drInsta(u){var nick='@'+u.replace(/^.*instagram\.com\//,'').replace(/[\/?#].*$/,'');if(!tg||!tg.showPopup){location.href=u;return}
 try{tg.showPopup({title:'Instagram '+nick,message:'Профіль найкраще відкривається в додатку Instagram.',buttons:[{id:'open',type:'default',text:'📸 Відкрити Instagram'},{id:'copy',type:'default',text:'📋 Скопіювати нік'}]},function(id){
-if(id==='open'){drOut(u)}else if(id==='copy'){drCopy(nick,'Нік '+nick+' скопійовано. Знайдіть його в пошуку Instagram.')}})}catch(e){location.href=u}}
+if(id==='open'){drOut(location.origin+'/bot/go.html?to=insta&u='+encodeURIComponent(nick.slice(1)))}else if(id==='copy'){drCopy(nick,'Нік '+nick+' скопійовано. Знайдіть його в пошуку Instagram.')}})}catch(e){location.href=u}}
 function drCall(n){var url=location.origin+'/bot/call.html?n='+encodeURIComponent(n);
 if(!tg||!tg.showPopup){location.href='tel:'+n;return}
 var pretty=n==='+380667772772'?'+380 66 777 27 72':n,btns=[{id:'call',type:'default',text:'📞 Подзвонити'}];
